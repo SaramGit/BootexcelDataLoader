@@ -1,0 +1,9 @@
+package com.nt.dao;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.nt.model.GstProduct;
+
+public interface GSTNRepo extends CrudRepository<GstProduct, Integer>{
+
+}

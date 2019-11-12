@@ -1,0 +1,62 @@
+package com.bk.CustEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Custemer {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
+	private int PNO;
+
+	@Override
+	public String toString() {
+		return "Custemer [PNO=" + PNO + ", PRICE=" + PRICE + ", PNAME=" + PNAME + "]";
+	}
+
+	@Column(name = "PRICE")
+	private int PRICE;
+
+	@Column(name = "PNAME")
+	private String PNAME;
+
+	public Custemer() {
+
+	}
+
+	public Custemer(int pNO, int pRICE, String pNAME) {
+		super();
+		PNO = pNO;
+		PRICE = pRICE;
+		PNAME = pNAME;
+	}
+
+	public int getPNO() {
+		return PNO;
+	}
+
+	public void setPNO(int pNO) {
+		PNO = pNO;
+	}
+
+	public int getPRICE() {
+		return PRICE;
+	}
+
+	public void setPRICE(int pRICE) {
+		PRICE = pRICE;
+	}
+
+	public String getPNAME() {
+		return PNAME;
+	}
+
+	public void setPNAME(String pNAME) {
+		PNAME = pNAME;
+	}
+
+}

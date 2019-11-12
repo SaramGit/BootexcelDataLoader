@@ -1,0 +1,23 @@
+package com.nt.proj;
+
+import java.util.Locale;
+
+public class Usacountry {
+	
+	  public static void main(String[] args) {
+		  String[] locales = Locale.getISOCountries();
+
+		  for (String countryCode : locales) {
+
+		    Locale obj = new Locale("", countryCode);
+
+		    /*System.out.println("Country Code = " + obj.getCountry()
+		      + ", Country Name = " + obj.getDisplayCountry());*/
+		    if(obj.getCountry().equals("US")){
+		    	System.out.println(obj.getDisplayCountry());
+		    }
+
+		  }
+	}
+
+}

@@ -1,0 +1,24 @@
+package com.nt.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import com.nt.model.User;
+import com.nt.service.SpringReadFileService;
+
+@Controller
+public class SpringReadFileController {
+
+	      @Autowired
+	      private SpringReadFileService service;
+	      
+	      private String home(Model model) {
+	    	  model.addAttribute("User", new User());
+	    	  List<User> users=service.findAll();
+	    	  model.addAttribute("users",users);
+	    	  return "user";
+	    	  }
+}

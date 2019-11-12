@@ -1,0 +1,5 @@
+package com.bk.repository;
+@Repository
+public interface UsastatesRepository extends JpaRepository<UsaState, String> {
+
+}

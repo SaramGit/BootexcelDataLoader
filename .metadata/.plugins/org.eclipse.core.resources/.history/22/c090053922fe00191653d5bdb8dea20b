@@ -1,0 +1,17 @@
+package com.ssn.fedral.gov;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
+
+import com.ssn.fedral.gov.stateConfig.AppConfig;
+
+@SpringBootApplication
+@Import(AppConfig.class)
+public class SsnWaveApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SsnWaveApplication.class, args);
+	}
+
+}

@@ -1,0 +1,15 @@
+package com.bk.repository;
+
+import java.io.Serializable;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.bk.entity.UsaState;
+
+@Repository
+public interface UsastatesRepository extends CrudRepository<UsaState, Serializable> {
+
+}

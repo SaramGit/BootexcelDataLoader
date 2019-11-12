@@ -1,0 +1,12 @@
+package com.bk.repository;
+
+import java.io.Serializable;
+
+import org.springframework.stereotype.Repository;
+
+import com.bk.entity.UsaState;
+
+@Repository
+public interface UsastatesRepository extend JpaRe {
+
+}

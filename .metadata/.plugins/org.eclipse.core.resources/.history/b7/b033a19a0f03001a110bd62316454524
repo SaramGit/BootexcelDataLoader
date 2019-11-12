@@ -1,0 +1,19 @@
+package com.nt.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import com.nt.model.User;
+import com.nt.service.SpringReadFileService;
+
+@Controller
+public class SpringReadFileController {
+
+	      @Autowired
+	      private SpringReadFileService service;
+	      
+	      private String home(Model model) {
+	    	  model.addAttribute("User",User);
+	      }
+}

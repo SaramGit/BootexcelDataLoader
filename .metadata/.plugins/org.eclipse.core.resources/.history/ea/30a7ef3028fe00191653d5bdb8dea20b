@@ -1,0 +1,30 @@
+package com.ssn.fedral.gov;
+
+import java.io.FileNotFoundException;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import com.ssn.fedral.gov.ssnservice.ISsnService;
+import com.ssn.fedral.gov.stateConfig.AppConfig;
+
+@SpringBootApplication
+//@Import(AppConfig.class)
+@EnableJpaRepositories
+public class SsnWaveApplication {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		ApplicationContext ctx=null;
+		ISsnService service=null;
+		SpringApplication.run(SsnWaveApplication.class, args);
+		//service=(ISsnService)ctx.getBean(ISsnService.class);
+		//System.out.println(service.registerEmployee());
+		
+	  
+	}
+
+}

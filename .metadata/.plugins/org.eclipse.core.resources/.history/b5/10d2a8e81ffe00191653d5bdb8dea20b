@@ -1,0 +1,41 @@
+package com.nt.Cusrservice;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nt.CustDao.CustemerDao;
+import com.nt.CustEntity.Custemer;
+
+@Service("ser")
+public class CustemerService {
+	@Autowired
+	private CustemerDao dao;
+
+	public boolean Save(Custemer c) {
+		Custemer custemer = dao.save(c);
+		return (custemer != null) ? true : false;
+	}
+
+	/*public Custemer findById(int id) {
+		// Use Dao
+		Custemer c = dao.findOne(id);
+		return c;
+	
+	}*/
+	public List<Custemer>getAlldetails(){
+		//Use Dao Clas
+		return dao.findAll();
+		
+	}
+	//Custom Qyery 
+	public List<String> getName() {
+		return dao.findCustemerPNAME();
+	
+
+}
+	/*public void Delete() {
+		dao.delete(1);
+	}*/
+}

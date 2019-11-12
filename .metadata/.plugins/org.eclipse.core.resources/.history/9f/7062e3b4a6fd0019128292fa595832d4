@@ -1,0 +1,18 @@
+package com.ssn.fedral.gov.ssnservice;
+
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import org.springframework.ui.Model;
+
+import com.ssn.fedral.gov.ssnentity.SsnMaster;
+import com.ssn.fedral.gov.ssnmodel.SsnModel;
+import com.ssn.fedral.gov.stateentity.UsaState;
+
+public interface ISsnService {
+	public Long SsnEnrolment(SsnModel model);
+	public List<String> rettriveAllstate() throws FileNotFoundException;
+	public List<SsnModel> getAllssn(); 
+	public SsnModel findStateName(Long ssn);
+	String registerEmployee() throws FileNotFoundException;
+}

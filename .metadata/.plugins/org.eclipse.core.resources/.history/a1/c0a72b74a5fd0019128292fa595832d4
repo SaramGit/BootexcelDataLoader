@@ -1,0 +1,39 @@
+package com.bk;
+
+import java.util.List;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+import com.bk.CustEntity.Custemer;
+import com.bk.Service.CustemerService;
+
+@SpringBootApplication
+public class SpringDataExampleApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext ctx = SpringApplication.run(SpringDataExampleApplication.class, args);
+		CustemerService service = (CustemerService) ctx.getBean("ser");
+		Custemer c = new Custemer();
+		/*
+		 * c.setPNAME("Bikash");
+		 * 
+		 * c.setPRICE(1212); boolean result = service.Save(c);
+		 * 
+		 * System.out.println("The Result is" + result);
+		 */
+		/*
+		 * Custemer cust=service.findById(1); System.out.println(cust);
+		 */
+		// Method For Finding All Method
+		/*
+		 * List<Custemer> custemerr=service.getAlldetails();
+		 * System.out.println(custemerr);
+		 */
+		/*List<String> name = service.getName();
+		System.out.println(name);*/
+		service.Delete();
+	}
+
+}

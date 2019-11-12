@@ -1,0 +1,193 @@
+package com.ssn.fedral.gov.ssnservice;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.ssn.fedral.gov.ssnRepository.SsnRepositorry;
+import com.ssn.fedral.gov.ssnentity.SsnMaster;
+import com.ssn.fedral.gov.ssnexception.InvalidSsnException;
+import com.ssn.fedral.gov.ssnmodel.SsnModel;
+import com.ssn.fedral.gov.ssnrestcontroller.SsnRestController;
+import com.ssn.fedral.gov.stateentity.UsaState;
+import com.ssn.fedral.gov.usastate.UsastatesRepository;
+
+@Service("stservice")
+public class SsnServiceImpl implements ISsnService {
+	@Autowired
+	private SsnRepositorry repository;
+	@Autowired
+	private UsastatesRepository staterepository;
+	private static final Logger logger = LoggerFactory.getLogger(SsnServiceImpl.class);
+	
+	/**
+	 * Method SsnEnrolment
+	 * @param SsnModel
+	 * @return Ssn
+	 */
+	@Override
+	public Long SsnEnrolment(SsnModel model) {
+		logger.info("**Running The SsnEnrolment**");
+
+		// TODO Auto-generated method stub
+		SsnMaster ssnmaster = new SsnMaster();
+		
+		//image conversion logic
+		/*byte [] photo=null;
+		MultipartFile imgFile=model.getPhoto();
+		try
+		{
+			photo=imgFile.getBytes();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}*/
+		
+		logger.info("Before Copy model to master");
+		BeanUtils.copyProperties(model, ssnmaster);
+		
+		/*ssnmaster.setPhoto(photo);*/
+		// Use Dao class
+		logger.debug("**Befor Calling RepositoryMethod**");
+		ssnmaster = repository.save(ssnmaster);
+		logger.debug("**After Getting ssnmaster **" + ssnmaster);
+		return ssnmaster.getSsn();
+	}
+	/**
+	 * Method rettriveAllstate
+	 * @param 
+	 * @throws FileNotFoundException 
+	 * @returnusaStatelist
+	 */
+	@Override
+	public List<String> rettriveAllstate() throws FileNotFoundException {
+		//add the state into the db
+		ISsnService service=new SsnServiceImpl();
+		System.out.println(service.registerEmployee());
+		//pointing to json file through reader
+		FileReader fr=new FileReader("state.json");
+		Gson gson=new Gson();
+		String json=gson.fromJson(fr, String.class);
+		
+		// TODO Auto-generated method stub
+		logger.info("**rettriveAllstate() Execution Started**");
+		
+		List<UsaState> usastate = staterepository.findAll();
+		logger.debug("**After Getting All usastate**" + usastate);
+		List<String> usaStatelist = new ArrayList<String>();
+		if (!usastate.isEmpty()) {
+			logger.warn("**Checking Condition !usastate.isEmpty())**");
+			for (UsaState usastateEntity : usastate) {
+				logger.debug("UsaState usastateEntity : usastate ");
+				usaStatelist.add(usastateEntity.getSTATENAME());
+				logger.trace("**Running The For Loop For Getting StateName**");
+			}
+
+		}
+		return usaStatelist;
+
+	}
+
+	/**
+	 * Method  getAllssn
+	 * @param 
+	 * @return model
+	 */
+	@Override
+	public List<SsnModel> getAllssn() {
+		// TODO Auto-generated method stub
+
+		logger.info("**getAllssn() Execution Started**");
+		List<SsnMaster> master = repository.findAll();
+		logger.debug("**Execution Complited and got master From Database**");
+		List<SsnModel> model = new ArrayList<SsnModel>();
+		if (!master.isEmpty()) {
+			logger.warn("**isEmpty()**");
+			for (SsnMaster ssn : master) {
+				logger.debug("**Loop Execution is continuing **");
+				SsnModel mod = new SsnModel();
+				BeanUtils.copyProperties(ssn, mod);
+				model.add(mod);
+				logger.trace("**getAllssn() Method Execution **");
+			}
+		}
+		logger.info("getAllssn() Execution Complited");
+		return model;
+	}
+	/**
+	 * Method findStateName
+	 *
+	 * @param Long ssn
+	 * @return ssnmodel
+	 */
+	@Override
+	public SsnModel findStateName(Long ssn) {
+		logger.info("findStateName Method  Exeution Started");
+		// TODO Auto-generated method stub
+		// local variable
+		SsnModel ssnmodel = null;
+		// Call Repository Class Method
+
+		Optional<SsnMaster> ssnmaster = repository.findById(ssn);
+		if (ssnmaster.isPresent()) {
+			logger.warn("**ssnmaster.isPresent()**");
+			ssnmodel = new SsnModel();
+			SsnMaster master = ssnmaster.get();
+			BeanUtils.copyProperties(master, ssnmodel);
+		} else {
+			logger.debug("**InvalidSsnException(\"Wrong Ssn Number\")**");
+			throw new InvalidSsnException("Wrong Ssn Number");
+
+		}
+		logger.info("findStateName method Execution Complited");
+		return ssnmodel;
+
+	}
+//test
+	public String registerEmployee() throws FileNotFoundException {
+		//pointing to json file through reader
+		FileReader fr=new FileReader("state.json");
+		Gson gson=new Gson();
+		JsonObject obj=gson.fromJson(fr, JsonObject.class);
+		System.out.println(obj);
+		Iterator< String> itr=obj.keySet().iterator();
+		String key=null;
+		String value=null;
+		UsaState state=new UsaState();
+		/*while(itr.hasNext()) {
+			   key=itr.next();
+			   value=obj.get(key).getAsString();
+			   
+			   state.setStateCode(key);
+			   state.setSTATENAME(value);
+			   System.out.println(state);
+			
+			   
+		}*/
+		state.setStateCode("Us");
+		state.setSTATENAME("udl");
+		System.out.println(state);
+		  state=staterepository.save(state);
+		System.out.println(state==null?"succes":"failed");
+		return value;
+   		
+		
+	}
+	
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="SpringDataExample-1"/>
+<aop-project name="EdRestApi"/>
+<aop-project name="Demoooo"/>
+<aop-project name="SpringbootJasperReportGeneration"/>
+<aop-project name="Usastates"/>
+<aop-project name="SpringBootAcuater"/>
+<aop-project name="SpringDataExample"/>
+<aop-project name="UHIP"/>
+<aop-project name="CURDoperation"/>
+<aop-project name="DemoException"/>
+<aop-project name="demo"/>
+<aop-project name="SSNWave"/>
+<aop-project name="Itext"/>
+</aop-reference-model>

@@ -1,0 +1,61 @@
+package com.bk.service;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class SsnServiceImpl implements ISsnService {
+	
+	@Autowired
+	private com.bk.repository.UsastatesRepository staterepository;
+	private static final Logger logger = LoggerFactory.getLogger(SsnServiceImpl.class);
+	
+	
+//test
+	public String registerEmployee() throws FileNotFoundException {
+		//pointing to json file through reader
+		FileReader fr=new FileReader("state.json");
+		Gson gson=new Gson();
+		JsonObject obj=gson.fromJson(fr, JsonObject.class);
+		System.out.println(obj);
+		Iterator< String> itr=obj.keySet().iterator();
+		String key=null;
+		String value=null;
+		UsaState state=new UsaState();
+		/*while(itr.hasNext()) {
+			   key=itr.next();
+			   value=obj.get(key).getAsString();
+			   
+			   state.setStateCode(key);
+			   state.setSTATENAME(value);
+			   System.out.println(state);
+			
+			   
+		}*/
+		state.setStateCode("Us");
+		state.setSTATENAME("udl");
+		System.out.println(state);
+		  state=staterepository.save(state);
+		//System.out.println(state);
+		return value;
+   		
+		
+	}
+	public static void main(String[] args) throws FileNotFoundException {
+		ISsnService service=new SsnServiceImpl();
+		System.out.println(service.registerEmployee());
+	}
+}

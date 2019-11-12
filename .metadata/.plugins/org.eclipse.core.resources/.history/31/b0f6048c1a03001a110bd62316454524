@@ -1,0 +1,77 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript"  src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" class="init">
+	$(document).ready(function() {
+	     $('#example').DataTable();
+       } );
+
+	</script>
+</head>
+<body>
+      <div class="container-fluid">
+      
+      <div class="row">
+           <div class="col-sm-12">
+                <h2>FileUpload</h2>
+                <form th:action="@('/fileupload')" th:object="$(User)" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                       <label for="fileUpload">fileUpload:(Csv,Excel or Json,Pdf try)</label>
+                       <input type="file" class="form-control" id="file" name="file" th:field="*(file)">
+                    </div>
+                     
+                           <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+             </div>
+            <div class="col-md-12">
+               <h2>All Users</h2>
+               <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>FileType</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="User : $(users)">
+                <td th:text="$(User.firstname)"></td>
+                <td th:text="$(User.lastname)"></td>
+                <td th:text="$(User.email)"></td>
+                <td th:text="$(User.phonenumber)"></td>
+                <td th:text="$(User.fileType)"></td>
+            </tr>
+           <tr>
+             </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+    </table>
+           </div>
+  </div>
+      </div>
+
+</body>
+</html>

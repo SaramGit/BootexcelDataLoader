@@ -1,0 +1,21 @@
+package com.nt.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Entity
+@Table
+@Data
+public class GstProduct {
+
+	       private int GroupCode;
+	       private int productcode;
+	       private String productname;
+	       private int preGST;
+	       private int GST;
+
+
+
+}

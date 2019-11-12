@@ -1,0 +1,27 @@
+package com.nt.service;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.nt.model.User;
+import com.nt.repo.SpringReadFileRepository;
+
+@Service
+@Transactional
+public class SpringReadFileServiceImpl implements SpringReadFileService {
+
+	    @Autowired
+	    private SpringReadFileRepository repository;
+
+		@Override
+		public List<User> findAll() {
+			List<User> users=(List<User>) repository.findAll();
+			return users;
+		}
+	    
+	    
+}
