@@ -8,34 +8,32 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nt.model.GstProduct;
 import com.nt.service.GstProductService;
 
 @Controller
+@RequestMapping(value="/product")
 public class ProductController {
 
 	@Autowired
     private GstProductService service;
-    @GetMapping("/")
+    @GetMapping("/give")
     private String home(Model model) {
   	  model.addAttribute("product", new GstProduct());
-  	  int  GstRate=service.findGstRate();
-  	  model.addAttribute("gstrate",GstRate);
-  	  return "view/products";
+  	   return "view/product";
   	  }
     
-    @PostMapping(value = "/fileupload")
-    private String uploadFile(@ModelAttribute GstProduct product,RedirectAttributes attributes) {
-  	  boolean isflag=service.saveDataFromUploadFile(product.getFile());
-  	         if (isflag) {
-			           attributes.addAttribute("SuccessMessage", "File Uploaded successfully.............");
-		         }
-  	         else {
-  	        	  attributes.addAttribute("ErrorMessage", "File Upload Failed Try again later..........");
-				}
-  	         
-  	  return "redirect:/";
+    @PostMapping(value = "/give")
+    private String uploadFile(@ModelAttribute GstProduct product,Model model) {
+  	  String productname=product.getProductname();
+  	  int gstrate=service.findGstRate(productname);
+  	  ModelAndView model1=new ModelAndView();
+  	  model.addAttribute("product", product);
+      model.addAttribute("gstrate",gstrate);
+  	  return "view/product";
     }
 }

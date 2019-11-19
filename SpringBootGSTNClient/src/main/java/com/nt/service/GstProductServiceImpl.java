@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -29,10 +30,18 @@ public class GstProductServiceImpl implements GstProductService {
 		List<GstProduct> list=new ArrayList<>();
         Iterable<GstProduct> product=repo.findAll();
         product.forEach(list::add);
-        list.forEach(p->{
-        	(p.getProductname().equalsIgnoreCase(productname))?p::
-        });
-        
+        Predicate<GstProduct> prod=pro->pro.getProductname().equalsIgnoreCase(productname);
+    	int rate=0;
+		/*list.forEach((rate)->{
+			  printRate(()->rate.getGst());
+		});*/
+        for(GstProduct product2:list) {
+        	if(prod.test(product2)) {
+        		  rate=product2.getGST();
+        		  System.out.println(rate);
+        	}
+        }
+      
        // Spliterator<GstProduct> spliterator = product.spliterator();   
         //Stream<GstProduct> stream=StreamSupport.stream(spliterator,false);
      
@@ -63,7 +72,14 @@ public class GstProductServiceImpl implements GstProductService {
 		}); 
 		*/
         
-		return 0;
+		return rate;
 	}
+
+	private void printRate(Object object) {
+		
+	}
+
+
+	
 
 }
